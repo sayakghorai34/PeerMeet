@@ -1,7 +1,7 @@
 import { Popover, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import { useParticipant } from "@videosdk.live/react-sdk";
-import { Fragment, useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState, useCallback } from "react";
 import ReactPlayer from "react-player";
 import { useMediaQuery } from "react-responsive";
 import useIsMobile from "../hooks/useIsMobile";
@@ -71,7 +71,7 @@ export const CornerDisplayName = ({
   const [audioStats, setAudioStats] = useState({});
   const [videoStats, setVideoStats] = useState({});
 
-  const updateStats = async () => {
+  const updateStats = useCallback(async () => {
     let stats = [];
     let audioStats = [];
     let videoStats = [];
@@ -88,7 +88,6 @@ export const CornerDisplayName = ({
       audioStats = isPresenting ? [] : await getAudioStats();
     }
 
-    // setScore(stats?.score);
     let score = stats
       ? stats.length > 0
         ? getQualityScore(stats[0])
@@ -98,8 +97,12 @@ export const CornerDisplayName = ({
     setScore(score);
     setAudioStats(audioStats);
     setVideoStats(videoStats);
-  };
+  }, [setScore, setAudioStats, setVideoStats, getAudioStats, getVideoStats, getShareStats, isPresenting, webcamStream, micStream]);
 
+
+
+
+  
   const qualityStateArray = [
     { label: "", audio: "Audio", video: "Video" },
     {
@@ -199,6 +202,7 @@ export const CornerDisplayName = ({
   ];
 
   useEffect(() => {
+    
     if (webcamStream || micStream || screenShareStream) {
       updateStats();
 
@@ -217,7 +221,7 @@ export const CornerDisplayName = ({
     return () => {
       if (statsIntervalIdRef.current) clearInterval(statsIntervalIdRef.current);
     };
-  }, [webcamStream, micStream, screenShareStream]);
+  }, [webcamStream, micStream, screenShareStream, updateStats]);
 
   return (
     <>

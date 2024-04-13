@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
@@ -7,10 +8,8 @@ const app = express();
 const PORT = process.env.PORT || 5500;
 app.use(cors());
 
-
-//Go to VideoSDK dashboard and get your API key and secret from API section after signup
-const API_KEY = "Add your API key";
-const SECRET = "Add yor secret";
+const API_KEY = process.env.API_KEY;
+const SECRET = process.env.SECRET_KEY; 
 
 const options = { 
   expiresIn: '120m', 

@@ -15,6 +15,14 @@ export function MeetingDetailsScreen({
   const [iscreateMeetingClicked, setIscreateMeetingClicked] = useState(false);
   const [isJoinMeetingClicked, setIsJoinMeetingClicked] = useState(false);
 
+  const resetState = () => {
+    setMeetingId("");
+    setMeetingIdError(false);
+    setIsCopied(false);
+    setIscreateMeetingClicked(false);
+    setIsJoinMeetingClicked(false);
+  };
+
   return (
     <div
       className={`flex flex-1 flex-col justify-center w-full md:p-[6px] sm:p-1 p-1.5`}
@@ -66,13 +74,10 @@ export function MeetingDetailsScreen({
             className="px-4 py-3 mt-5 bg-gray-650 rounded-xl text-white w-full text-center"
           />
 
-          {/* <p className="text-xs text-white mt-1 text-center">
-            Your name will help everyone identify you in the meeting.
-          </p> */}
           <button
             disabled={participantName.length < 3}
-            className={`w-full ${participantName.length < 3 ? "bg-gray-650" : "bg-purple-350"
-              }  text-white px-2 py-3 rounded-xl mt-5`}
+            className={`w-full ${participantName.length < 3 ? "bg-gray-650 text-gray-500" : "bg-purple-350 text-gray-100"
+              }  px-2 py-3 rounded-xl mt-5`}
             onClick={(e) => {
               if (iscreateMeetingClicked) {
                 onClickStartMeeting();
@@ -85,6 +90,15 @@ export function MeetingDetailsScreen({
           >
             {iscreateMeetingClicked ? "Start a meeting" : "Join a meeting"}
           </button>
+
+          {isJoinMeetingClicked && (
+            <button
+              className="w-full bg-gray-650 text-gray-500 px-2 py-3 rounded-xl mt-3"
+              onClick={resetState}
+            >
+              Go back to create meeting
+            </button>
+          )}
         </>
       )}
 
@@ -92,7 +106,7 @@ export function MeetingDetailsScreen({
         <div className="w-full md:mt-0 mt-4 flex flex-col">
           <div className="flex items-center justify-center flex-col w-full ">
             <button
-              className="w-full bg-purple-350 text-white px-2 py-3 rounded-xl"
+              className="w-full bg-purple-350 text-gray-100 px-2 py-3 rounded-xl"
               onClick={async (e) => {
                 const { meetingId, err } = await _handleOnCreateMeeting();
               
@@ -119,7 +133,7 @@ export function MeetingDetailsScreen({
               Create a meeting
             </button>
             <button
-              className="w-full bg-gray-650 text-white px-2 py-3 rounded-xl mt-5"
+              className="w-full bg-gray-650 text-gray-100 px-2 py-3 rounded-xl mt-5"
               onClick={(e) => {
                 setIsJoinMeetingClicked(true);
               }}

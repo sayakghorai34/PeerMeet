@@ -56,7 +56,7 @@ export default function DropDown({
       setRecordingProgress(0)
       setRecordingStatus("inactive")
     }
-  }, [didDeviceChange])
+  }, [didDeviceChange, setDidDeviceChange])
 
   const analyseAudio = (audioTrack) => {
     const audioStream = new MediaStream([audioTrack]);
@@ -145,7 +145,7 @@ export default function DropDown({
   };
 
   const stopRecording = () => {
-    if (mediaRecorder.current.state != "inactive") {
+    if (mediaRecorder.current.state !== "inactive") {
       setRecordingProgress(0);
       setRecordingStatus("stopped recording");
       clearInterval(intervalRef.current)
@@ -170,7 +170,7 @@ export default function DropDown({
               group inline-flex items-center rounded-md px-1 py-1 w-44 text-base font-normal
               ${!isMicrophonePermissionAllowed ? "opacity-50" : ""}`}
               onClick={() => {
-                if (mediaRecorder.current != null && mediaRecorder.current.state == "recording") { stopRecording() }
+                if (mediaRecorder.current != null && mediaRecorder.current.state === "recording") { stopRecording() }
                 setRecordingProgress(0)
                 setRecordingStatus("inactive")
               }}
@@ -225,7 +225,7 @@ export default function DropDown({
                                         })
                                       );
                                       changeMic(item?.deviceId);
-                                      if (mediaRecorder.current != null && mediaRecorder.current.state == "recording") { stopRecording() }
+                                      if (mediaRecorder.current != null && mediaRecorder.current.state === "recording") { stopRecording() }
                                       setRecordingProgress(0)
                                       setRecordingStatus("inactive")
                                     }}
@@ -254,21 +254,21 @@ export default function DropDown({
                             <div className="bg-white opacity-50 h-1 rounded-full" style={{ width: `${volume / 256 * 100}%` }} ></div>
                           </div>
 
-                          {recordingStatus == "inactive" && <button className='w-16 h-7 text-xs rounded ml-5 bg-gray-450' onClick={startRecording}>
+                          {recordingStatus === "inactive" && <button className='w-16 h-7 text-xs rounded ml-5 bg-gray-450' onClick={startRecording}>
                             Record
                           </button>}
 
-                          {recordingStatus == "stopped recording" && <button className='w-16 h-7 text-xs rounded ml-5 bg-gray-450' onClick={handlePlaying}>
+                          {recordingStatus === "stopped recording" && <button className='w-16 h-7 text-xs rounded ml-5 bg-gray-450' onClick={handlePlaying}>
                             Play
                           </button>}
 
-                          {recordingStatus == "recording" && <button className='w-16 h-7 text-xs rounded ml-5 bg-gray-450 relative z-0' onClick={stopRecording}>
+                          {recordingStatus === "recording" && <button className='w-16 h-7 text-xs rounded ml-5 bg-gray-450 relative z-0' onClick={stopRecording}>
                             <div className=' h-7 rounded bg-[#6F767E] absolute top-0 left-0 ' style={{ width: `${recordingProgress}%` }} >
                               <PauseButton />
                             </div>
                           </button>}
 
-                          {recordingStatus == "playing" && <button className='w-16 h-7 text-xs rounded ml-5 bg-gray-450 relative z-0' onClick={handlePlaying}>
+                          {recordingStatus === "playing" && <button className='w-16 h-7 text-xs rounded ml-5 bg-gray-450 relative z-0' onClick={handlePlaying}>
                             <div className=' h-7 rounded bg-[#6F767E] absolute top-0 left-0 ' style={{ width: `${audioProgress}%` }} >
                               <PauseButton />
                             </div>
