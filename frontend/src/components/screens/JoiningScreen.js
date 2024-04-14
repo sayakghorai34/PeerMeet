@@ -136,7 +136,7 @@ export function JoiningScreen({
   useEffect(() => {
     checkMediaPermission();
     return () => { };
-  }, []);
+  },[]);
 
   const _toggleWebcam = () => {
     const videoTrack = videoTrackRef.current;
@@ -241,13 +241,13 @@ export function JoiningScreen({
     try {
       const permission = await requestPermission(mediaType);
 
-      if (mediaType == Constants.permission.AUDIO) {
+      if (mediaType === Constants.permission.AUDIO) {
         setIsMicrophonePermissionAllowed(
           permission.get(Constants.permission.AUDIO)
         );
       }
 
-      if (mediaType == Constants.permission.VIDEO) {
+      if (mediaType === Constants.permission.VIDEO) {
         setIsCameraPermissionAllowed(
           permission.get(Constants.permission.VIDEO)
         );
