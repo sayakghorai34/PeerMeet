@@ -15,24 +15,32 @@ function ParticipantGrid({ participantIds, isPresenting }) {
     "only screen and (max-width: 768px)"
   ).matches;
 
-  const perRow =
-    isMobile || isPresenting
-      ? participantIds.length < 4
-        ? 1
-        : participantIds.length < 9
-        ? 2
-        : 3
-      : participantIds.length < 5
-      ? 2
-      : participantIds.length < 7
-      ? 3
-      : participantIds.length < 9
-      ? 4
-      : participantIds.length < 10
-      ? 3
-      : participantIds.length < 11
-      ? 4
-      : 4;
+  let perRow;
+
+  if (isMobile || isPresenting) {
+    if (participantIds.length < 4) {
+      perRow = 1;
+    } else if (participantIds.length < 9) {
+      perRow = 2;
+    } else {
+      perRow = 3;
+    }
+  } else {
+    if (participantIds.length < 5) {
+      perRow = 2;
+    } else if (participantIds.length < 7) {
+      perRow = 3;
+    } else if (participantIds.length < 9) {
+      perRow = 4;
+    } else if (participantIds.length < 10) {
+      perRow = 3;
+    } else if (participantIds.length < 11) {
+      perRow = 4;
+    } else {
+      perRow = 4;
+    }
+  }
+  
 
   return (
     <div
