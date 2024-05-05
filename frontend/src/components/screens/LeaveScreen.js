@@ -35,7 +35,7 @@ export function LeaveScreen({ setIsMeetingLeft }) {
           className="w-full bg-gray-700 text-white px-16 py-3 rounded-lg text-sm mt-2 mb-2"
           onClick={handleClick}
         >
-          Go to Home ({countdown})
+          Go to Home» ({countdown})
         </button>
       </div>
     </div>
