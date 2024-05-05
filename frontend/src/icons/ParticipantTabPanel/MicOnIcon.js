@@ -1,5 +1,3 @@
-import * as React from "react";
-
 const MicOnIcon = (props) => (
   <svg
     width={18}

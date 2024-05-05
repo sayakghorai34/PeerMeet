@@ -13,10 +13,10 @@ import { useMediaQuery } from "react-responsive";
 import { toast } from "react-toastify";
 import { useMeetingAppContext } from "../MeetingAppContextDef";
 
-export function MeetingContainer({
+const  MeetingContainer = ({
   onMeetingLeave,
   setIsMeetingLeft,
-}) {
+}) => {
   const {
     setSelectedMic,
     setSelectedWebcam,
@@ -276,3 +276,4 @@ export function MeetingContainer({
     </div>
   );
 }
+export default MeetingContainer;

@@ -8,8 +8,6 @@ function ParticipantsViewer({ isPresenting }) {
     pinnedParticipants,
     activeSpeakerId,
     localParticipant,
-    localScreenShareOn,
-    presenterId,
   } = useMeeting();
 
   const participantIds = useMemo(() => {
@@ -43,8 +41,8 @@ function ParticipantsViewer({ isPresenting }) {
     participants,
     activeSpeakerId,
     pinnedParticipants,
-    presenterId,
-    localScreenShareOn,
+    isPresenting,
+    localParticipant.id,
   ]);
 
   return (

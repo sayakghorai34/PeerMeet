@@ -1,4 +1,4 @@
-import { useContext, createContext, useState, useEffect, useRef } from "react";
+import React,{ useContext, createContext, useState, useEffect, useRef } from "react";
 
 export const MeetingAppContext = createContext();
 

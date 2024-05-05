@@ -22,7 +22,7 @@ import { useMeetingAppContext } from "../../MeetingAppContextDef";
 import { toast } from "react-toastify";
 import Logo from "./webcam.png";
 
-export function JoiningScreen({
+const JoiningScreen = ({
   participantName,
   setParticipantName,
   setMeetingId,
@@ -35,8 +35,7 @@ export function JoiningScreen({
   customAudioStream,
   setCustomAudioStream,
   setCustomVideoStream
-}) {
-
+}) => {
   const {
     selectedWebcam,
     selectedMic,
@@ -47,7 +46,7 @@ export function JoiningScreen({
     isMicrophonePermissionAllowed,
     setIsCameraPermissionAllowed,
     setIsMicrophonePermissionAllowed
-  } = useMeetingAppContext()
+  } = useMeetingAppContext();
 
   const [{ webcams, mics, speakers }, setDevices] = useState({
     webcams: [],
@@ -66,7 +65,7 @@ export function JoiningScreen({
   const [videoTrack, setVideoTrack] = useState(null);
   const [dlgMuted, setDlgMuted] = useState(false);
   const [dlgDevices, setDlgDevices] = useState(false);
-  const [didDeviceChange, setDidDeviceChange] = useState(false)
+  const [didDeviceChange, setDidDeviceChange] = useState(false);
 
   const videoPlayerRef = useRef();
   const videoTrackRef = useRef();
@@ -77,9 +76,8 @@ export function JoiningScreen({
   const micRef = useRef();
   const isMobile = useIsMobile();
 
-  useEffect(() => { webcamRef.current = webcamOn }, [webcamOn])
-
-  useEffect(() => { micRef.current = micOn }, [micOn])
+  useEffect(() => { webcamRef.current = webcamOn }, [webcamOn]);
+  useEffect(() => { micRef.current = micOn }, [micOn]);
 
   useEffect(() => {
     permissonAvaialble.current = {
@@ -93,165 +91,112 @@ export function JoiningScreen({
       audioTrackRef.current = audioTrack;
       startMuteListener();
     }
-
   }, [micOn, audioTrack]);
 
   useEffect(() => {
     if (webcamOn) {
       videoTrackRef.current = videoTrack;
-
-      var isPlaying =
-        videoPlayerRef.current.currentTime > 0 &&
-        !videoPlayerRef.current.paused &&
-        !videoPlayerRef.current.ended &&
-        videoPlayerRef.current.readyState >
-        videoPlayerRef.current.HAVE_CURRENT_DATA;
-
-      if (videoTrack) {
-        const videoSrcObject = new MediaStream([videoTrack]);
-
-        if (videoPlayerRef.current) {
-          videoPlayerRef.current.srcObject = videoSrcObject;
-          if (videoPlayerRef.current.pause && !isPlaying) {
-            videoPlayerRef.current
-              .play()
-              .catch((error) => console.log("error", error));
-          }
-        }
-      } else {
-        if (videoPlayerRef.current) {
-          videoPlayerRef.current.srcObject = null;
-        }
-      }
+      handleVideoTrack();
     }
   }, [webcamOn, videoTrack]);
 
   useEffect(() => {
-    getCameraDevices();
-  }, [isCameraPermissionAllowed]);
-
-  useEffect(() => {
-    getAudioDevices();
-  }, [isMicrophonePermissionAllowed]);
+    getDevices();
+  }, [isCameraPermissionAllowed, isMicrophonePermissionAllowed]);
 
   useEffect(() => {
     checkMediaPermission();
-    return () => { };
-  },[]);
+  }, []);
 
-  const _toggleWebcam = () => {
+  const handleVideoTrack = () => {
     const videoTrack = videoTrackRef.current;
-
-    if (webcamOn) {
-      if (videoTrack) {
-        videoTrack.stop();
-        setVideoTrack(null);
-        setCustomVideoStream(null)
-        setWebcamOn(false);
-      }
+    if (videoTrack) {
+      const videoSrcObject = new MediaStream([videoTrack]);
+      videoPlayerRef.current.srcObject = videoSrcObject;
     } else {
-      getDefaultMediaTracks({ mic: false, webcam: true });
-      setWebcamOn(true);
-    }
-  }
-
-  const _toggleMic = () => {
-    const audioTrack = audioTrackRef.current;
-
-    if (micOn) {
-      if (audioTrack) {
-        audioTrack.stop();
-        setAudioTrack(null);
-        setCustomAudioStream(null)
-        setMicOn(false);
-      }
-    } else {
-      getDefaultMediaTracks({ mic: true, webcam: false });
-      setMicOn(true);
-    }
-  }
-
-  const changeWebcam = async (deviceId) => {
-    if (webcamOn) {
-      const currentvideoTrack = videoTrackRef.current;
-      if (currentvideoTrack) {
-        currentvideoTrack.stop();
-      }
-
-      const stream = await getVideoTrack({
-        webcamId: deviceId
-      })
-      setCustomVideoStream(stream);
-      const videoTracks = stream?.getVideoTracks();
-      const videoTrack = videoTracks.length ? videoTracks[0] : null;
-      setVideoTrack(videoTrack);
-    }
-
-  };
-  const changeMic = async (deviceId) => {
-    if (micOn) {
-      const currentAudioTrack = audioTrackRef.current;
-      currentAudioTrack && currentAudioTrack.stop();
-      const stream = await getAudioTrack({
-        micId: deviceId
-      })
-      setCustomAudioStream(stream);
-      const audioTracks = stream?.getAudioTracks();
-      const audioTrack = audioTracks.length ? audioTracks[0] : null;
-      clearInterval(audioAnalyserIntervalRef.current);
-      setAudioTrack(audioTrack);
+      videoPlayerRef.current.srcObject = null;
     }
   };
 
-  const getDefaultMediaTracks = async ({ mic, webcam }) => {
-    if (mic) {
-      const stream = await getAudioTrack({
-        micId: selectedMic.id
-      })
-      setCustomAudioStream(stream);
-      const audioTracks = stream?.getAudioTracks();
-      const audioTrack = audioTracks.length ? audioTracks[0] : null;
-      setAudioTrack(audioTrack)
+  const getDevices = async () => {
+    if (isCameraPermissionAllowed) {
+      const webcams = await getCameras();
+      setSelectedWebcam({ id: webcams[0]?.deviceId, label: webcams[0]?.label });
+      setDevices((devices) => ({ ...devices, webcams }));
     }
 
-    if (webcam) {
-      const stream = await getVideoTrack({
-        webcamId: selectedWebcam.id
-      })
-      setCustomVideoStream(stream);
-      const videoTracks = stream?.getVideoTracks();
-      const videoTrack = videoTracks.length ? videoTracks[0] : null;
-      setVideoTrack(videoTrack);
-
+    if (isMicrophonePermissionAllowed) {
+      const mics = await getMicrophones();
+      const speakers = await getPlaybackDevices();
+      setSelectedSpeaker({ id: speakers[0]?.deviceId, label: speakers[0]?.label });
+      setSelectedMic({ id: mics[0]?.deviceId, label: mics[0]?.label });
+      setDevices((devices) => ({ ...devices, mics, speakers }));
     }
   };
 
-  async function startMuteListener() {
+  const startMuteListener = () => {
     const currentAudioTrack = audioTrackRef.current;
     if (currentAudioTrack) {
       if (currentAudioTrack.muted) {
         setDlgMuted(true);
       }
-      currentAudioTrack.addEventListener("mute", (ev) => {
+      currentAudioTrack.addEventListener("mute", () => {
         setDlgMuted(true);
       });
     }
-  }
+  };
 
-  async function requestAudioVideoPermission(mediaType) {
+  const checkMediaPermission = async () => {
+    const checkAudioVideoPermission = await checkPermissions();
+    const cameraPermissionAllowed = checkAudioVideoPermission.get(Constants.permission.VIDEO);
+    const microphonePermissionAllowed = checkAudioVideoPermission.get(Constants.permission.AUDIO);
+
+    setIsCameraPermissionAllowed(cameraPermissionAllowed);
+    setIsMicrophonePermissionAllowed(microphonePermissionAllowed);
+
+    if (microphonePermissionAllowed) {
+      setMicOn(true);
+      getDefaultMediaTracks({ mic: true, webcam: false });
+    } else {
+      await requestAudioVideoPermission(Constants.permission.AUDIO);
+    }
+
+    if (cameraPermissionAllowed) {
+      setWebcamOn(true);
+      getDefaultMediaTracks({ mic: false, webcam: true });
+    } else {
+      await requestAudioVideoPermission(Constants.permission.VIDEO);
+    }
+  };
+
+  const getDefaultMediaTracks = async ({ mic, webcam }) => {
+    if (mic) {
+      const stream = await getAudioTrack({ micId: selectedMic.id });
+      setCustomAudioStream(stream);
+      const audioTracks = stream?.getAudioTracks();
+      const audioTrack = audioTracks.length ? audioTracks[0] : null;
+      setAudioTrack(audioTrack);
+    }
+
+    if (webcam) {
+      const stream = await getVideoTrack({ webcamId: selectedWebcam.id });
+      setCustomVideoStream(stream);
+      const videoTracks = stream?.getVideoTracks();
+      const videoTrack = videoTracks.length ? videoTracks[0] : null;
+      setVideoTrack(videoTrack);
+    }
+  };
+
+  const requestAudioVideoPermission = async (mediaType) => {
     try {
       const permission = await requestPermission(mediaType);
 
       if (mediaType === Constants.permission.AUDIO) {
-        setIsMicrophonePermissionAllowed(
-          permission.get(Constants.permission.AUDIO)
-        );
+        setIsMicrophonePermissionAllowed(permission.get(Constants.permission.AUDIO));
       }
 
       if (mediaType === Constants.permission.VIDEO) {
-        setIsCameraPermissionAllowed(
-          permission.get(Constants.permission.VIDEO)
-        );
+        setIsCameraPermissionAllowed(permission.get(Constants.permission.VIDEO));
       }
 
       if (permission.get(Constants.permission.AUDIO)) {
@@ -266,75 +211,68 @@ export function JoiningScreen({
     } catch (ex) {
       console.log("Error in requestPermission ", ex);
     }
-  }
+  };
+
+  const _toggleWebcam = () => {
+    if (webcamOn) {
+      if (videoTrackRef.current) {
+        videoTrackRef.current.stop();
+        setVideoTrack(null);
+        setCustomVideoStream(null);
+        setWebcamOn(false);
+      }
+    } else {
+      getDefaultMediaTracks({ mic: false, webcam: true });
+      setWebcamOn(true);
+    }
+  };
+
+  const _toggleMic = () => {
+    if (micOn) {
+      if (audioTrackRef.current) {
+        audioTrackRef.current.stop();
+        setAudioTrack(null);
+        setCustomAudioStream(null);
+        setMicOn(false);
+      }
+    } else {
+      getDefaultMediaTracks({ mic: true, webcam: false });
+      setMicOn(true);
+    }
+  };
+
+  const changeWebcam = async (deviceId) => {
+    if (webcamOn) {
+      const currentVideoTrack = videoTrackRef.current;
+      if (currentVideoTrack) {
+        currentVideoTrack.stop();
+      }
+      const stream = await getVideoTrack({ webcamId: deviceId });
+      setCustomVideoStream(stream);
+      const videoTracks = stream?.getVideoTracks();
+      const videoTrack = videoTracks.length ? videoTracks[0] : null;
+      setVideoTrack(videoTrack);
+    }
+  };
+
+  const changeMic = async (deviceId) => {
+    if (micOn) {
+      const currentAudioTrack = audioTrackRef.current;
+      currentAudioTrack && currentAudioTrack.stop();
+      const stream = await getAudioTrack({ micId: deviceId });
+      setCustomAudioStream(stream);
+      const audioTracks = stream?.getAudioTracks();
+      const audioTrack = audioTracks.length ? audioTracks[0] : null;
+      clearInterval(audioAnalyserIntervalRef.current);
+      setAudioTrack(audioTrack);
+    }
+  };
+
   function onDeviceChanged() {
-    setDidDeviceChange(true)
-    getCameraDevices();
-    getAudioDevices();
+    setDidDeviceChange(true);
+    getDevices();
     getDefaultMediaTracks({ mic: micRef.current, webcam: webcamRef.current });
   }
-
-  const checkMediaPermission = async () => {
-    const checkAudioVideoPermission = await checkPermissions();
-    const cameraPermissionAllowed = checkAudioVideoPermission.get(
-      Constants.permission.VIDEO
-    );
-    const microphonePermissionAllowed = checkAudioVideoPermission.get(
-      Constants.permission.AUDIO
-    );
-
-    setIsCameraPermissionAllowed(cameraPermissionAllowed);
-    setIsMicrophonePermissionAllowed(microphonePermissionAllowed);
-
-    if (microphonePermissionAllowed) {
-      setMicOn(true);
-      getDefaultMediaTracks({ mic: true, webcam: false });
-
-    } else {
-      await requestAudioVideoPermission(Constants.permission.AUDIO);
-    }
-    if (cameraPermissionAllowed) {
-      setWebcamOn(true);
-      getDefaultMediaTracks({ mic: false, webcam: true });
-    } else {
-      await requestAudioVideoPermission(Constants.permission.VIDEO);
-    }
-  };
-
-  const getCameraDevices = async () => {
-    try {
-      if (permissonAvaialble.current?.isCameraPermissionAllowed) {
-        let webcams = await getCameras();
-        setSelectedWebcam({ id: webcams[0]?.deviceId, label: webcams[0]?.label })
-        setDevices((devices) => {
-          return { ...devices, webcams };
-        });
-      }
-    } catch (err) {
-      console.log("Error in getting camera devices", err);
-    }
-  };
-
-  const getAudioDevices = async () => {
-    try {
-      if (permissonAvaialble.current?.isMicrophonePermissionAllowed) {
-
-        let mics = await getMicrophones();
-        let speakers = await getPlaybackDevices();
-        const hasMic = mics.length > 0;
-        if (hasMic) {
-          startMuteListener();
-        }
-        setSelectedSpeaker({ id: speakers[0]?.deviceId, label: speakers[0]?.label })
-        setSelectedMic({ id: mics[0]?.deviceId, label: mics[0]?.label });
-        setDevices((devices) => {
-          return { ...devices, mics, speakers };
-        });
-      }
-    } catch (err) {
-      console.log("Error in getting audio devices", err);
-    }
-  };
 
   const ButtonWithTooltip = ({ onClick, onState, OnIcon, OffIcon }) => {
     const btnRef = useRef();
@@ -359,7 +297,7 @@ export function JoiningScreen({
   };
 
   return (
-    <div className="fixed inset-0">
+    <div className="fixed inset-0 select-none">
       <div className="overflow-y-auto flex flex-col flex-1 h-screen bg-gray-800">
         <div className="flex flex-1 flex-col md:flex-row items-center justify-center md:m-[72px] m-16">
           <div className="container grid  md:grid-flow-col grid-flow-row ">
@@ -374,45 +312,30 @@ export function JoiningScreen({
                         muted
                         ref={videoPlayerRef}
                         controls={false}
-                        style={{
-                          backgroundColor: "#1c1c1c",
-                        }}
-                        className={
-                          "rounded-[10px] h-full w-full object-cover flex items-center justify-center flip"
-                        }
+                        style={{ backgroundColor: "#1c1c1c" }}
+                        className={"rounded-[10px] h-full w-full object-cover flex items-center justify-center flip "}
                       />
-
                       {!isMobile ? (
-                        <>
-                          <div className="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center">
-                            {!webcamOn ? (
-                              <p className="text-xl xl:text-lg 2xl:text-xl text-white">
-                                The camera is off
-                              </p>
-                            ) : null}
-                          </div>
-                        </>
+                        <div className="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center">
+                          {!webcamOn && <p className="text-xl xl:text-lg 2xl:text-xl text-white">The camera is off</p>}
+                        </div>
                       ) : null}
-
                       <div className="absolute xl:bottom-6 bottom-4 left-0 right-0">
                         <div className="container grid grid-flow-col space-x-4 items-center justify-center md:-m-2">
                           {isMicrophonePermissionAllowed ? (
                             <ButtonWithTooltip
                               onClick={_toggleMic}
                               onState={micOn}
-                              mic={true}
                               OnIcon={MicOnIcon}
                               OffIcon={MicOffIcon}
                             />
                           ) : (
                             <MicPermissionDenied />
                           )}
-
                           {isCameraPermissionAllowed ? (
                             <ButtonWithTooltip
                               onClick={_toggleWebcam}
                               onState={webcamOn}
-                              mic={false}
                               OnIcon={WebcamOnIcon}
                               OffIcon={WebcamOffIcon}
                             />
@@ -422,13 +345,11 @@ export function JoiningScreen({
                         </div>
                       </div>
                     </div>
-
                     {!isMobile && (
                       <>
                         <div className="absolute top-2 right-10">
                           <NetworkStats />
                         </div>
-
                         <div className="flex mt-3">
                           <DropDown
                             mics={mics}
@@ -439,9 +360,7 @@ export function JoiningScreen({
                             didDeviceChange={didDeviceChange}
                             setDidDeviceChange={setDidDeviceChange}
                           />
-                          <DropDownSpeaker
-                            speakers={speakers}
-                          />
+                          <DropDownSpeaker speakers={speakers} />
                           <DropDownCam
                             changeWebcam={changeWebcam}
                             webcams={webcams}
@@ -453,10 +372,10 @@ export function JoiningScreen({
                 </div>
               </div>
               <div className="md:col-span-5 2xl:col-span-5 col-span-12 md:relative">
-                <>
-                  <h1 className="text-gray-400 text-2xl font-bold text-center mt-4">
-                    <img src={Logo} alt="PeerMeet Logo" className="w-12 h-12 mx-auto" />
-                    <span>Welcome to PeerMeet!</span>
+                <div className=" align-middle">
+                  <h1 className="text-gray-400 text-2xl sm:text-xl font-bold text-center mt-4">
+                    <img src={Logo} alt="PeerMeet Logo" className="w-12 h-12 mx-auto transition-transform duration-300 transform scale-100 hover:scale-95" />
+                    <span className="">Welcome to PeerMeet!</span>
                   </h1>
                   <div className="flex flex-1 flex-col items-center justify-center xl:m-16 lg:m-6 md:mt-9 lg:mt-14 xl:mt-20 mt-3 md:absolute md:left-0 md:right-0 md:top-0 md:bottom-0">
                     <MeetingDetailsScreen
@@ -494,7 +413,6 @@ export function JoiningScreen({
                       _handleOnCreateMeeting={async () => {
                         const token = await getToken();
                         const { meetingId, err } = await createMeeting({ token });
-
                         if (meetingId) {
                           setToken(token);
                           setMeetingId(meetingId);
@@ -503,7 +421,7 @@ export function JoiningScreen({
                       }}
                     />
                   </div>
-                </>
+                </div>
               </div>
             </div>
           </div>
@@ -516,8 +434,7 @@ export function JoiningScreen({
           setDlgMuted(false);
         }}
         title="System mic is muted"
-        subTitle="You're default microphone is muted, please unmute it or increase audio
-            input volume from system settings."
+        subTitle="You're default microphone is muted, please unmute it or increase audio input volume from system settings."
       />
       <ConfirmBox
         open={dlgDevices}
@@ -529,5 +446,6 @@ export function JoiningScreen({
         subTitle="Please connect a mic and webcam to speak and share your video in the meeting. You can also join without them."
       />
     </div>
-  );
+  );  
 }
+export default JoiningScreen;

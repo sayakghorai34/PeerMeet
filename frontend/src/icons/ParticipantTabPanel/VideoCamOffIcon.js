@@ -1,5 +1,3 @@
-import * as React from "react";
-
 const VideoCamOffIcon = (props) => (
   <svg
     width={18}

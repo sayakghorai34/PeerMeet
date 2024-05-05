@@ -1,10 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
-import CircularProgress from "@mui/material/CircularProgress"; 
+import React, { useEffect, useRef, useState, useMemo } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
+
 const WaitingToJoinScreen = () => {
-  const waitingMessages = [
+  const waitingMessages = useMemo(() => [
     { index: 0, text: "Creating a room for you..." },
     { index: 1, text: "Almost there..." },
-  ];
+  ], []);
+
   const [message, setMessage] = useState(waitingMessages[0]);
 
   const intervalRef = useRef(null);
@@ -21,7 +23,7 @@ const WaitingToJoinScreen = () => {
     return () => {
       clearInterval(intervalRef.current);
     };
-  }, []);
+  }, [waitingMessages]);
 
   return (
     <div

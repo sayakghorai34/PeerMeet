@@ -1,20 +1,20 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
-export function LeaveScreen({ setIsMeetingLeft }) {
+const LeaveScreen = ({ setIsMeetingLeft }) => {
   const [countdown, setCountdown] = useState(10);
-  let timer;
+  const timerRef = useRef(null);
 
   useEffect(() => {
-    timer = setTimeout(() => {
+    timerRef.current = setTimeout(() => {
       setIsMeetingLeft(false);
     }, countdown * 1000);
 
-    return () => clearTimeout(timer);
+    return () => clearTimeout(timerRef.current);
   }, [countdown, setIsMeetingLeft]);
 
   const handleClick = () => {
     setIsMeetingLeft(false);
-    clearTimeout(timer);
+    clearTimeout(timerRef.current);
   };
 
   useEffect(() => {
@@ -35,9 +35,10 @@ export function LeaveScreen({ setIsMeetingLeft }) {
           className="w-full bg-gray-700 text-white px-16 py-3 rounded-lg text-sm mt-2 mb-2"
           onClick={handleClick}
         >
-          Go to Home» ({countdown})
+          Go to Home ({countdown})
         </button>
       </div>
     </div>
   );
 }
+export default LeaveScreen;

@@ -7,8 +7,8 @@ const useMediaStream = () => {
       const track = await createCameraVideoTrack({
         cameraId: webcamId ,
         encoderConfig: encoderConfig ?  encoderConfig :"h540p_w960p",
-        optimizationMode: "motion",
-        multiStream: false,
+        optimizationMode: "detail",
+        multiStream: true,
       });
 
       return track;
@@ -20,7 +20,13 @@ const useMediaStream = () => {
   const getAudioTrack = async ({micId}) => {
     try{
       const track = await createMicrophoneAudioTrack({
-        microphoneId: micId
+        microphoneId: micId,
+        encoderConfig: "music_standard",
+        noiseConfig:{
+          noiseSuppression: true,
+          echoCancellation: true,
+          autoGainControl: true
+        }
       });
       return track;
     } catch(error) {

@@ -1,5 +1,3 @@
-import * as React from "react";
-
 const MicOffIcon = (props) => (
   <svg
     width={18}

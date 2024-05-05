@@ -19,6 +19,7 @@ export function MeetingDetailsScreen({
     setMeetingId("");
     setMeetingIdError(false);
     setIsCopied(false);
+    setParticipantName("");
     setIscreateMeetingClicked(false);
     setIsJoinMeetingClicked(false);
   };

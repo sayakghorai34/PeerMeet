@@ -33,7 +33,7 @@ export const CornerDisplayName = ({
   const [statsBoxHeightRef, setStatsBoxHeightRef] = useState(null);
   const [statsBoxWidthRef, setStatsBoxWidthRef] = useState(null);
 
-  const [coords, setCoords] = useState({}); // takes current button coordinates
+  const [coords, setCoords] = useState({});
 
   const statsBoxHeight = useMemo(
     () => statsBoxHeightRef?.offsetHeight,
@@ -473,18 +473,14 @@ export function ParticipantView({ participantId }) {
       <audio ref={micRef} autoPlay muted={isLocal} />
       {webcamOn ? (
         <ReactPlayer
-          //
-          playsinline // very very imp prop
+          playsinline
           playIcon={<></>}
-          //
           pip={false}
           light={false}
           controls={false}
           muted={true}
           playing={true}
-          //
           url={webcamMediaStream}
-          //
           height={"100%"}
           width={"100%"}
           onError={(err) => {
