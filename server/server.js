@@ -28,6 +28,10 @@ app.get('/get-token', (req, res) => {
   // console.log(token);
 });
 
+app.get('/good-morning', (req, res) => {
+  res.send('I hate Mondays!!');
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

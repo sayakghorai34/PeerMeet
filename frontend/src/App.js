@@ -28,6 +28,22 @@ function App() {
       };
     }
   }, [isMobile]);
+  
+  useEffect(() => {
+    const wakeUpServer = async () => {
+      try {
+        const res = await fetch(`${process.env.REACT_APP_AUTH_URL}/good-morning`, {
+          method: "GET"
+        });
+        console.log(`Server response: ${await res.text()}`);
+      } catch (error) {
+        console.error("Error waking up the server:", error);
+      }
+    };
+
+    wakeUpServer();
+  }, []);
+
 
   return (
     <>
