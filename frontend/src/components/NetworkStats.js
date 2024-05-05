@@ -23,14 +23,14 @@ const NetworkStats = () => {
       }
       setDownloadSpeed(networkStats["downloadSpeed"]);
       setUploadSpeed(networkStats["uploadSpeed"])
-    } catch (ex) {
-      if (ex === "Not able to get NetworkStats due to no Network") {
+    } catch (e) {
+      if (e === "Not able to get NetworkStats due to no Network") {
         setError("no-wifi")
       }
-      if (ex === "Not able to get NetworkStats due to timeout") {
+      if (e === "Not able to get NetworkStats due to timeout") {
         setError("timeout")
       }
-      console.log("Error in networkStats: ", ex);
+      console.log("Error in networkStats: ", e);
     }
   }
   

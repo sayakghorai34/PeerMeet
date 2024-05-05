@@ -76,7 +76,7 @@ export function MeetingDetailsScreen({
 
           <button
             disabled={participantName.length < 3}
-            className={`w-full ${participantName.length < 3 ? "bg-gray-650 text-gray-500" : "bg-purple-350 text-gray-100"
+            className={`w-full  ${participantName.length < 1 ? "bg-gray-650 text-gray-500 hover:ring-2 ring-gray-500" : "bg-purple-350 text-gray-100 hover:ring-2 ring-purple-300"
               }  px-2 py-3 rounded-xl mt-5`}
             onClick={(e) => {
               if (iscreateMeetingClicked) {
@@ -90,15 +90,12 @@ export function MeetingDetailsScreen({
           >
             {iscreateMeetingClicked ? "Start a meeting" : "Join a meeting"}
           </button>
-
-          {isJoinMeetingClicked && (
-            <button
-              className="w-full bg-gray-650 text-gray-500 px-2 py-3 rounded-xl mt-3"
-              onClick={resetState}
-            >
-              Go back to create meeting
-            </button>
-          )}
+          <button
+            className="w-full bg-gray-700 text-gray-500 px-2 py-3 rounded-xl mt-3 hover:ring-2 ring-gray-500"
+            onClick={resetState}
+          >
+            Go back to Home
+          </button>
         </>
       )}
 

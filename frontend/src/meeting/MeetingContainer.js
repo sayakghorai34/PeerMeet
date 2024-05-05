@@ -121,7 +121,7 @@ export function MeetingContainer({
   }
 
   function onMeetingJoined() {
-    console.log("onMeetingJoined");
+    // console.log("onMeetingJoined");
   }
 
   function onMeetingLeft() {

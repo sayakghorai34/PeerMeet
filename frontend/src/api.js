@@ -6,7 +6,7 @@ export const getToken = async () => {
       method: "GET",
     });
     const { token } = await res.json();
-    console.log(token);
+    // console.log(token);
     return token;
 };
 

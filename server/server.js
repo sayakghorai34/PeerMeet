@@ -25,7 +25,7 @@ app.get('/get-token', (req, res) => {
 
   const token = jwt.sign(payload, SECRET, options);
   res.json({ token });
-  console.log(token);
+  // console.log(token);
 });
 
 app.listen(PORT, () => {
