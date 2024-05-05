@@ -20,6 +20,7 @@ import DropDownSpeaker from "../DropDownSpeaker";
 import NetworkStats from "../NetworkStats";
 import { useMeetingAppContext } from "../../MeetingAppContextDef";
 import { toast } from "react-toastify";
+import Logo from "./webcam.png";
 
 export function JoiningScreen({
   participantName,
@@ -452,51 +453,57 @@ export function JoiningScreen({
                 </div>
               </div>
               <div className="md:col-span-5 2xl:col-span-5 col-span-12 md:relative">
-                <div className="flex flex-1 flex-col items-center justify-center xl:m-16 lg:m-6 md:mt-9 lg:mt-14 xl:mt-20 mt-3 md:absolute md:left-0 md:right-0 md:top-0 md:bottom-0">
-                  <MeetingDetailsScreen
-                    participantName={participantName}
-                    setParticipantName={setParticipantName}
-                    videoTrack={videoTrack}
-                    setVideoTrack={setVideoTrack}
-                    onClickStartMeeting={onClickStartMeeting}
-                    onClickJoin={async (id) => {
-                      const token = await getToken();
-                      const { meetingId, err } = await validateMeeting({
-                        roomId: id,
-                        token,
-                      });
-                      if (meetingId === id) {
-                        setToken(token);
-                        setMeetingId(id);
-                        onClickStartMeeting();
-                      } else {
-                        toast(
-                          `${err}`,
-                          {
-                            position: "bottom-left",
-                            autoClose: 4000,
-                            hideProgressBar: true,
-                            closeButton: false,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "light",
-                          }
-                        );
-                      }
-                    }}
-                    _handleOnCreateMeeting={async () => {
-                      const token = await getToken();
-                      const { meetingId, err } = await createMeeting({ token });
+                <>
+                  <h1 className="text-gray-400 text-2xl font-bold text-center mt-4">
+                    <img src={Logo} alt="PeerMeet Logo" className="w-12 h-12 mx-auto" />
+                    <span>Welcome to PeerMeet!</span>
+                  </h1>
+                  <div className="flex flex-1 flex-col items-center justify-center xl:m-16 lg:m-6 md:mt-9 lg:mt-14 xl:mt-20 mt-3 md:absolute md:left-0 md:right-0 md:top-0 md:bottom-0">
+                    <MeetingDetailsScreen
+                      participantName={participantName}
+                      setParticipantName={setParticipantName}
+                      videoTrack={videoTrack}
+                      setVideoTrack={setVideoTrack}
+                      onClickStartMeeting={onClickStartMeeting}
+                      onClickJoin={async (id) => {
+                        const token = await getToken();
+                        const { meetingId, err } = await validateMeeting({
+                          roomId: id,
+                          token,
+                        });
+                        if (meetingId === id) {
+                          setToken(token);
+                          setMeetingId(id);
+                          onClickStartMeeting();
+                        } else {
+                          toast(
+                            `${err}`,
+                            {
+                              position: "bottom-left",
+                              autoClose: 4000,
+                              hideProgressBar: true,
+                              closeButton: false,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                              theme: "light",
+                            }
+                          );
+                        }
+                      }}
+                      _handleOnCreateMeeting={async () => {
+                        const token = await getToken();
+                        const { meetingId, err } = await createMeeting({ token });
 
-                      if (meetingId) {
-                        setToken(token);
-                        setMeetingId(meetingId);
-                      }
-                      return { meetingId: meetingId, err: err }
-                    }}
-                  />
-                </div>
+                        if (meetingId) {
+                          setToken(token);
+                          setMeetingId(meetingId);
+                        }
+                        return { meetingId: meetingId, err: err }
+                      }}
+                    />
+                  </div>
+                </>
               </div>
             </div>
           </div>

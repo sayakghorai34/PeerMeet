@@ -28,12 +28,13 @@ export function MeetingDetailsScreen({
       className={`flex flex-1 flex-col justify-center w-full md:p-[6px] sm:p-1 p-1.5`}
     >
       {iscreateMeetingClicked ? (
-        <div className="border border-solid border-gray-400 rounded-xl px-4 py-3  flex items-center justify-center">
-          <p className="text-white text-base">
-            {`Meeting code : ${meetingId}`}
+        <div className="border border-solid border-gray-400 rounded-xl px-2 py-3  flex items-center justify-center">
+          <p className="text-base">
+            <p className="text-gray-500 font-thin">Meeting code: </p>
+            <span className="text-blue-300 font-bold ml-1">{meetingId}</span>
           </p>
           <button
-            className="ml-2"
+            className="ml-16"
             onClick={() => {
               navigator.clipboard.writeText(meetingId);
               setIsCopied(true);
@@ -91,7 +92,7 @@ export function MeetingDetailsScreen({
             {iscreateMeetingClicked ? "Start a meeting" : "Join a meeting"}
           </button>
           <button
-            className="w-full bg-gray-700 text-gray-500 px-2 py-3 rounded-xl mt-3 hover:ring-2 ring-gray-500"
+            className="w-full bg-gray-700 text-gray-500 px-2 py-3 rounded-xl mt-5 hover:ring-2 ring-gray-500"
             onClick={resetState}
           >
             Go back to Home
