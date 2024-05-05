@@ -1,5 +1,5 @@
 # PeerMeet
-This is a simple video conferencing app built using VideoSDK SDK and MERN stack. The goal of the project is to practice MERN Stack, know about SDKs',
+This is a simple video conferencing app built using VideoSDK SDK and MERN stack. The goal of the project is to practice MERN Stack, know about SDK,
 This project is built for educational purpose. 
 
 ## Live Link: 
