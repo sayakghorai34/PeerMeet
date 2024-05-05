@@ -4,7 +4,6 @@ This project is built for educational purpose.
 
 ## Live Link: 
  - [https://sg34-peermeet.netlify.app/](https://sg34-peermeet.netlify.app/)
-
  - The site deals with high resolution real time video streams and hence utilizes a lot of resources. Hence, this link may crash several time due to the limited resource allocation of the free hosting services. 
 
 ## Highlights of the Project:
@@ -16,6 +15,13 @@ This project is built for educational purpose.
 
 ## How to Run the Project?
  - Clone the repository by `git clone https://github.com/sayakghorai34/PeerMeet.git`
- ### Server:
+ ### server:
+  - Go to the `VideoSDK` homepage [https://www.videosdk.live/](https://www.videosdk.live/) and follow the instructions to create your `API` and `SECRET`.
   - Go to the server directory by running `cd server`
+  - Rename the `.env copy` to `.env`
+  - Paste your `API` and `SECRET` under `API_KEY` and `SECRET_KEY`.
+  - Run `npm i` to install all the dependencies/ node modules.
+  - Run `npm start` to start the server.
+### frontend:
+  - a,jsfv
   - 
