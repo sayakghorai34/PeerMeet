@@ -4,6 +4,9 @@ This project is built for educational purposes.
 
 ## Live Link: 
  - [https://sg34-peermeet.netlify.app/](https://sg34-peermeet.netlify.app/)
+ - [https://sg34-peermeet.web.app/](https://sg34-peermeet.web.app/)
+   ![image](https://github.com/sayakghorai34/PeerMeet/assets/115321969/572c48a8-75ef-4c2a-abf2-64e165aa6cdb)
+
  - The site deals with high-resolution real-time video streams and hence utilizes a lot of resources. Hence, this link may crash several times due to the limited resource allocation of the free hosting services.
 
 ## Highlights of the Project:
