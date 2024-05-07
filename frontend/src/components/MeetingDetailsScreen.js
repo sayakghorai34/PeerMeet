@@ -93,8 +93,8 @@ export function MeetingDetailsScreen({
           />
 
           <button
-            disabled={participantName.length < 3}
-            className={`w-full  ${participantName.length < 1 ? "bg-gray-650 text-gray-500 hover:ring-2 ring-gray-500" : "bg-purple-350 text-gray-100 hover:ring-2 ring-purple-300"
+            disabled={participantName.length < 2}
+            className={`w-full  ${participantName.length < 2 ? "bg-gray-650 text-gray-500 hover:ring-2 ring-gray-500" : "bg-purple-350 text-gray-100 hover:ring-2 ring-purple-300"
               }  px-2 py-3 rounded-xl mt-5`}
             onClick={(e) => {
               if (iscreateMeetingClicked) {
