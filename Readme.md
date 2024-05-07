@@ -17,6 +17,9 @@ This project is built for educational purposes.
  - Clone the repository by `git clone https://github.com/sayakghorai34/PeerMeet.git`
  ### server:
   - Go to the `VideoSDK` homepage [https://www.videosdk.live/](https://www.videosdk.live/) and follow the instructions to create your `API` and `SECRET`.
+  The VideoSDK API screen would look like this:
+<img width="1383" alt="Screenshot 2024-05-08 at 4 01 12 AM" src="https://github.com/sayakghorai34/PeerMeet/assets/137064671/bd52d43b-ce8e-4362-9b10-e19aa36b9848">
+
   - Go to the server directory by running `cd server`
   - Rename the `.env copy` to `.env`
   - Paste your `API` and `SECRET` under `API_KEY` and `SECRET_KEY`.
