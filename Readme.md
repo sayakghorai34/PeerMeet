@@ -37,17 +37,23 @@ This project is built for educational purposes.
 
 ## A Quick UI tour:  
  - The Homepage:
-   ![image](https://github.com/sayakghorai34/PeerMeet/assets/115321969/55a98b7e-d11b-4945-80c3-3054d72c9e26)
+   - ![image](https://github.com/sayakghorai34/PeerMeet/assets/115321969/55a98b7e-d11b-4945-80c3-3054d72c9e26)
+ 
  - Create Meeting:
-   ![image](https://github.com/sayakghorai34/PeerMeet/assets/115321969/6f501c1c-38d7-4108-9c51-f7d03659ec52)
+   - ![image](https://github.com/sayakghorai34/PeerMeet/assets/115321969/6f501c1c-38d7-4108-9c51-f7d03659ec52)
+ 
  - Join Meeting:
-   ![image](https://github.com/sayakghorai34/PeerMeet/assets/115321969/6903d56f-9104-4cda-8b17-86974976505c)
+   - ![image](https://github.com/sayakghorai34/PeerMeet/assets/115321969/6903d56f-9104-4cda-8b17-86974976505c)
+ 
  - Meeting Room:
-   ![image](https://github.com/sayakghorai34/PeerMeet/assets/115321969/2142e02f-07f6-4cae-82c0-995acb1ff7d5)
+   - ![image](https://github.com/sayakghorai34/PeerMeet/assets/115321969/2142e02f-07f6-4cae-82c0-995acb1ff7d5)
+ 
  - Meeting controls/toggles:
-   ![image](https://github.com/sayakghorai34/PeerMeet/assets/115321969/bdf52292-3cfa-4e5e-80ce-3d357e218baa)
+   - ![image](https://github.com/sayakghorai34/PeerMeet/assets/115321969/bdf52292-3cfa-4e5e-80ce-3d357e218baa)
+ 
  - Chat Section:
-   ![WhatsApp Image 2024-05-08 at 03 55 26_dba2277d](https://github.com/sayakghorai34/PeerMeet/assets/115321969/d0f00ce3-4652-4ad9-874f-48461af791c1)
+   - ![WhatsApp Image 2024-05-08 at 03 55 26_dba2277d](https://github.com/sayakghorai34/PeerMeet/assets/115321969/d0f00ce3-4652-4ad9-874f-48461af791c1)
+
 ## Future Aspects:
   - Implement Login & oAuth for the sake of the user's distinct API and SECRET usages.
       - Currently, the user will be using the developer's API and SECRET so the meeting recordings won't be available to the users, but the developer can access it. The Developer can also monitor activities such as meeting duration, participants, meeting stats and analytics, and many more things. So, generally, it will raise user privacy and security issues. If we implement the Login feature and store the data using some database, MongoDB preferably, we can store the user's own API and SECRET of all individual users. Then the backend server can generate the token using the user's credentials and all data will be stored within the user's reach. They will be able to see their meeting logs and recordings and everything will stay within the VideoSDK server with the consent of the user that they must have agreed upon during Account setup.
