@@ -20,6 +20,7 @@ This project is built for educational purposes.
   The VideoSDK API screen would look like this:
 <img width="1383" alt="Screenshot 2024-05-08 at 4 01 12 AM" src="https://github.com/sayakghorai34/PeerMeet/assets/137064671/bd52d43b-ce8e-4362-9b10-e19aa36b9848">
 
+### In the code editor:
   - Go to the server directory by running `cd server`
   - Rename the `.env copy` to `.env`
   - Paste your `API` and `SECRET` under `API_KEY` and `SECRET_KEY`.
@@ -35,14 +36,19 @@ This project is built for educational purposes.
  - The Homepage:
    ![image](https://github.com/sayakghorai34/PeerMeet/assets/115321969/55a98b7e-d11b-4945-80c3-3054d72c9e26)
  - Create Meeting:
+   
    ![image](https://github.com/sayakghorai34/PeerMeet/assets/115321969/6f501c1c-38d7-4108-9c51-f7d03659ec52)
  - Join Meeting:
+   
    ![image](https://github.com/sayakghorai34/PeerMeet/assets/115321969/6903d56f-9104-4cda-8b17-86974976505c)
  - Meeting Room:
+   
    ![image](https://github.com/sayakghorai34/PeerMeet/assets/115321969/2142e02f-07f6-4cae-82c0-995acb1ff7d5)
  - Meeting controls/toggles:
+   
    ![image](https://github.com/sayakghorai34/PeerMeet/assets/115321969/bdf52292-3cfa-4e5e-80ce-3d357e218baa)
  - Chat Section:
+   
    ![WhatsApp Image 2024-05-08 at 03 55 26_dba2277d](https://github.com/sayakghorai34/PeerMeet/assets/115321969/d0f00ce3-4652-4ad9-874f-48461af791c1)
 ## Future Aspects:
   - Implement Login & oAuth for the sake of the user's distinct API and SECRET usages.
