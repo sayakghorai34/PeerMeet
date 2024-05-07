@@ -3,9 +3,9 @@ This is a simple video conferencing app built using VideoSDK SDK and MERN stack.
 This project is built for educational purposes. 
 
 ## Live Link: 
- - [https://sg34-peermeet.netlify.app/](https://sg34-peermeet.netlify.app/)
- - [https://sg34-peermeet.web.app/](https://sg34-peermeet.web.app/)
-   ![image](https://github.com/sayakghorai34/PeerMeet/assets/115321969/572c48a8-75ef-4c2a-abf2-64e165aa6cdb)
+ - Link1: [https://sg34-peermeet.netlify.app/](https://sg34-peermeet.netlify.app/)
+ - Link2: [https://sg34-peermeet.web.app/](https://sg34-peermeet.web.app/)
+ - Link3: [https://sg34-peermeet.firebaseapp.com/](https://sg34-peermeet.firebaseapp.com/)
 
  - The site deals with high-resolution real-time video streams and hence utilizes a lot of resources. Hence, this link may crash several times due to the limited resource allocation of the free hosting services.
 
@@ -39,19 +39,14 @@ This project is built for educational purposes.
  - The Homepage:
    ![image](https://github.com/sayakghorai34/PeerMeet/assets/115321969/55a98b7e-d11b-4945-80c3-3054d72c9e26)
  - Create Meeting:
-   
    ![image](https://github.com/sayakghorai34/PeerMeet/assets/115321969/6f501c1c-38d7-4108-9c51-f7d03659ec52)
  - Join Meeting:
-   
    ![image](https://github.com/sayakghorai34/PeerMeet/assets/115321969/6903d56f-9104-4cda-8b17-86974976505c)
  - Meeting Room:
-   
    ![image](https://github.com/sayakghorai34/PeerMeet/assets/115321969/2142e02f-07f6-4cae-82c0-995acb1ff7d5)
  - Meeting controls/toggles:
-   
    ![image](https://github.com/sayakghorai34/PeerMeet/assets/115321969/bdf52292-3cfa-4e5e-80ce-3d357e218baa)
  - Chat Section:
-   
    ![WhatsApp Image 2024-05-08 at 03 55 26_dba2277d](https://github.com/sayakghorai34/PeerMeet/assets/115321969/d0f00ce3-4652-4ad9-874f-48461af791c1)
 ## Future Aspects:
   - Implement Login & oAuth for the sake of the user's distinct API and SECRET usages.
