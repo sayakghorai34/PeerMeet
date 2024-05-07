@@ -149,6 +149,18 @@ export function BottomBar({bottomBarHeight,setIsMeetingLeft}) {
               <ClipboardIcon className="h-5 w-5 text-white" />
             )}
           </button>
+          <button
+            className="ml-2 text-gray-500 hover:text-gray-100 text-3xl"
+            onClick={() => {
+              console.log("email");
+              const copyMessage =`\n🎉 You're invited to an amazing conversation at:\n🔗 https://sg34-peermeet.web.app/\n\n\n🚀 Meeting ID: ${meetingId}\n\n\nJoin us and let's connect! 🌐`;
+              const subject = "Join the PeerMeet Conversation!";
+              const body = encodeURIComponent(copyMessage);
+              window.open(`mailto:?subject=${subject}&body=${body}`);
+            }}
+          >
+            »
+          </button>
         </div>
       </div>
     );
