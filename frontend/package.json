@@ -10,6 +10,8 @@
     "@mui/material": "^5.15.15",
     "@popperjs/core": "^2.11.8",
     "@videosdk.live/react-sdk": "^0.1.84",
+    "firebase": "^10.11.1",
+    "firebase-tools": "^13.8.0",
     "lottie-react": "^2.4.0",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-loader": "^7.3.3",
