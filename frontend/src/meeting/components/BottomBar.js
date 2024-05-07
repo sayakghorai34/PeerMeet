@@ -132,12 +132,16 @@ export function BottomBar({bottomBarHeight,setIsMeetingLeft}) {
           <button
             className="ml-2"
             onClick={() => {
-              navigator.clipboard.writeText(meetingId);
+              const copyMessage =`\n🎉 You're invited to an amazing conversation at:\n🔗 https://sg34-peermeet.web.app/\n\n\n🚀 Meeting ID: ${meetingId}\n\n\nJoin us and let's connect! 🌐`;
+            
+              navigator.clipboard.writeText(copyMessage);
               setIsCopied(true);
+            
               setTimeout(() => {
                 setIsCopied(false);
               }, 3000);
             }}
+            
           >
             {isCopied ? (
               <CheckIcon className="h-5 w-5 text-green-400" />

@@ -277,7 +277,7 @@ const JoiningScreen = ({
   const ButtonWithTooltip = ({ onClick, onState, OnIcon, OffIcon }) => {
     const btnRef = useRef();
     return (
-      <>
+      <div>
         <div>
           <button
             ref={btnRef}
@@ -292,7 +292,7 @@ const JoiningScreen = ({
             )}
           </button>
         </div>
-      </>
+      </div>
     );
   };
 

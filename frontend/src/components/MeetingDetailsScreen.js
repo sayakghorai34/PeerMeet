@@ -37,18 +37,34 @@ export function MeetingDetailsScreen({
           <button
             className="ml-16"
             onClick={() => {
-              navigator.clipboard.writeText(meetingId);
+              const copyMessage =`\n🎉 You're invited to an amazing conversation at:\n🔗 https://sg34-peermeet.web.app/\n\n\n🚀 Meeting ID: ${meetingId}\n\n\nJoin us and let's connect! 🌐`;
+            
+              navigator.clipboard.writeText(copyMessage);
               setIsCopied(true);
+            
               setTimeout(() => {
                 setIsCopied(false);
               }, 3000);
             }}
+            
           >
             {isCopied ? (
               <CheckIcon className="h-5 w-5 text-green-400" />
             ) : (
-              <ClipboardIcon className="h-5 w-5 text-white" />
+              <ClipboardIcon className="h-5 w-5 text-gray-500 hover:text-gray-200" />
             )}
+          </button>
+          <button
+            className="ml-2 text-gray-500 hover:text-gray-100 text-3xl"
+            onClick={() => {
+              console.log("email");
+              const copyMessage =`\n🎉 You're invited to an amazing conversation at:\n🔗 https://sg34-peermeet.web.app/\n\n\n🚀 Meeting ID: ${meetingId}\n\n\nJoin us and let's connect! 🌐`;
+              const subject = "Join the PeerMeet Conversation!";
+              const body = encodeURIComponent(copyMessage);
+              window.open(`mailto:?subject=${subject}&body=${body}`);
+            }}
+          >
+            »
           </button>
         </div>
       ) : isJoinMeetingClicked ? (
