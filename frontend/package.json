@@ -1,6 +1,6 @@
 {
-  "name": "video-conference",
-  "version": "0.1.0",
+  "name": "peer-meet",
+  "version": "2.1.0",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.4",
