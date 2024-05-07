@@ -8,8 +8,8 @@ This project is built for educational purposes.
 
 ## Highlights of the Project:
  - Like-Realtime Communication(very minimal latency)
- - High-Quality audio-visual communication
- - Features like switching media devices such as camera, mic, speaker; Screen Sharing, In Call Chat, Raising Hand, Meeting Recording(Recording will be available at the SDK provider's dashboard)
+ - High-quality audio-visual communication
+ - Features like switching media devices such as camera, mic, speaker; Screen Sharing, Call Chat, Raising Hand, Meeting Recording(Recording will be available at the SDK provider's dashboard)
  - Network Status monitoring
  - Interactive and self-explanatory User Interface.
 
@@ -48,6 +48,6 @@ This project is built for educational purposes.
   - Optimise media stream for negotiating with media quality, and network bandwidth.
 
 ## Updates:
-  - Implemented a bit of Lazy loading for resource optimisation
-  - Explored and modified the Media Streams (video and audio track) such as implemented multi-track video, audio processing, for better experience
+  - Implemented a bit of Lazy loading for resource optimization
+  - Explored and modified the Media Streams (video and audio track) such as implementing multi-track video, and audio processing, for a better experience
   - Modularized and break down large modules into small small components
