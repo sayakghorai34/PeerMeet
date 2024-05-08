@@ -6,7 +6,7 @@ const useMediaStream = () => {
     try {
       const track = await createCameraVideoTrack({
         cameraId: webcamId ,
-        encoderConfig: encoderConfig ?  encoderConfig :"h540p_w960p",
+        encoderConfig: encoderConfig ?  encoderConfig :"h2160p_w3840p",
         optimizationMode: "detail",
         multiStream: true,
       });
@@ -21,11 +21,11 @@ const useMediaStream = () => {
     try{
       const track = await createMicrophoneAudioTrack({
         microphoneId: micId,
-        encoderConfig: "music_standard",
+        encoderConfig: "high_quality_stereo",
         noiseConfig:{
-          noiseSuppression: true,
-          echoCancellation: true,
-          autoGainControl: true
+          noiseSuppression: false,
+          echoCancellation: false,
+          autoGainControl: false
         }
       });
       return track;
